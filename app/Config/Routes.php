@@ -35,6 +35,13 @@ $routes->get('/about', 'pages::about');
 $routes->get('/contact', 'pages::contact');
 $routes->get('/home', 'pages:: shope');
 $routes->get('/home.', 'pages::about');
+$routes->get('/home', 'makanan::index');
+$routes->get('/home', 'datamakanan::index');
+$routes->get('/login', 'login_view::index');
+
+
+
+// $routes->get('/home.', 'pages::keranjang');
 
 
 

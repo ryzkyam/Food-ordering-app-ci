@@ -86,7 +86,7 @@ $app->initialize();
 $console = new CodeIgniter\CLI\Console();
 
 // Show basic information before we do anything else.
-if (is_int($suppress = array_search('--no-header', $_SERVER['argv'], true))) {
+if (is_int($suppress = array_search('--no-header', $_SERVER['arguments'], true))) {
     unset($_SERVER['argv'][$suppress]); // @codeCoverageIgnore
     $suppress = true;
 }

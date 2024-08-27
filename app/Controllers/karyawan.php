@@ -11,6 +11,9 @@ class karyawan extends BaseController
     }
 
 
+    public function disc(){
+     return view('kayawan/dww');
+    }
 
 }
 

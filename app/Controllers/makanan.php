@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-
+use PhpParser\Builder\Function_;
 
 class makanan extends BaseController
 {
@@ -13,5 +13,21 @@ class makanan extends BaseController
     ];
     return view('makanan/index', $data);
 }
+
+    public function details()
+    
+    {
+        
+    }
+
+    public function keranjang()
+    {
+
+    }
+
+    public function pesanan(){
+        
+    }
+
 }
 ?>

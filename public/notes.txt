@@ -1,0 +1,181 @@
+1. harus sesuai alur ucd 
+2. penjelasam ucd secara singkat sebelium plan 
+3. bereapa respondedn dalamm sesi wawancara rentang usia yang diwawancara detail wilayah untuk project ini
+    pertanyaan wawancara fokus ke apk dan masalah yang ada dalam aplikasi seperti dari permasalahan mengantri yang terlalu lamaa bisa terselesaikan dan dalam pembayaran terdapat opsi menggunakan cashless atau cahs 
+    deskriptif apa yang mereka harapkan
+
+    kebutuhan informasi dengan
+
+    kebutuhann sebagai devloper 
+    - 
+
+    kebutuhan user/pembeli 
+    - 
+
+    developers 
+
+    membuat detail makanan dan minuman 
+    menggunkan bahasa php 
+
+    dengan inputan user pada sesi card dengan opsi add to card ke dalam keranjang 
+    membuat fitur add to card
+
+
+    membuat total pembayaran sebelum masuk ke dalam keranjang 
+
+
+
+/file minuman/
+<?php
+// Mulai atau lanjutkan sesi
+session_start();
+
+$drinks = [
+  ["img" => "/img/minuman1.jpg", "title" => "Jus Alpukat", "price" => "10K", "link" => "/keranjang"],
+  ["img" => "/img/minuman2.jpg", "title" => "Fanta/Coca-Cola", "price" => "8K", "link" => "/keranjang"],
+  ["img" => "/img/minuman3.jpg", "title" => "Teh Manis", "price" => "2K", "link" => "/keranjang"],
+  ["img" => "/img/minuman5.jpg", "title" => "Coffe Capucino", "price" => "10K", "link" => "/keranjang"],
+  ["img" => "/img/minuman5.jpg", "title" => "Coffe Capucino", "price" => "10K", "link" => "/keranjang"],
+  ["img" => "/img/minuman6.jpg", "title" => "Americano", "price" => "8K", "link" => "/keranjang"],
+  ["img" => "/img/minuman7.jpg", "title" => "Milo", "price" => "7K", "link" => "/keranjang"],
+  ["img" => "/img/minuman3.jpg", "title" => "Teh Manis", "price" => "2K", "link" => "/keranjang"]
+];
+
+// Periksa apakah kunci 'cart' ada dalam sesi, jika tidak, inisialisasi sebagai array kosong
+if (!isset($_SESSION['cart'])) {
+  $_SESSION['cart'] = [];
+}
+
+// Proses klik tombol Beli Sekarang
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $drinkId = $_POST['drink_id']; // Anggap Anda memiliki ID minuman yang unik untuk setiap item
+
+  // Tambahkan minuman ke keranjang
+  $_SESSION['cart'][] = $drinks[$drinkId];
+}
+
+?>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-5 mb-96">
+  <?php foreach ($drinks as $drinkId => $drink) : ?>
+    <form method="post">
+      <div class="card w-96 bg-base-56 shadow-xl">
+        <input type="hidden" name="drink_id" value="<?php echo $drinkId; ?>">
+        <figure class="px-10 pt-10">
+          <img src="<?php echo $drink['img'] ?>" alt="logo" class="rounded-xl" />
+        </figure>
+        <div class="card-body items-center text-center">
+          <h2 class="card-title"><?php echo $drink['title'] ?></h2>
+          <p><?php echo $drink['price'] ?></p>
+          <div class="card-actions">
+            <button type="submit" class="btn btn-primary">Beli Sekarang</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  <?php endforeach; ?>
+</div>
+
+
+
+/ file makanan/
+
+<?php
+// Mulai atau lanjutkan sesi
+session_start();
+
+$categories = [
+    ["img" => "/img/baked.jpg", "title" => "Ayam bakar", "price" => "20K", "link" => "/keranjang"],
+    ["img" => "/img/OIP.jpg", "title" => "Bebek goreng", "price" => "30K", "link" => "/keranjang"],
+    ["img" => "/img/new1.jpg", "title" => "Ayam asam manis", "price" => "20K", "link" => "/keranjang"],
+    ["img" => "/img/new2.jpg", "title" => "Cumi goreng", "price" => "20K", "link" => "/keranjang"],
+    ["img" => "/img/baked.jpg", "title" => "Ayam presto", "price" => "20K", "link" => "/keranjang"],
+    ["img" => "/img/baked.jpg", "title" => "Soto banteng", "price" => "25K", "link" => "/keranjang"],
+    ["img" => "/img/baked.jpg", "title" => "Cumi goreng", "price" => "20K", "link" => "/keranjang"],
+    ["img" => "/img/baked.jpg", "title" => "Ayam presto", "price" => "20K", "link" => "/keranjang"]
+];
+
+// Periksa apakah kunci 'cart' ada dalam sesi, jika tidak, inisialisasi sebagai array kosong
+if (!isset($_SESSION['cart_makanan'])) {
+    $_SESSION['cart_makanan'] = [];
+}
+
+// Proses klik tombol Beli Sekarang
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $productId = $_POST['product_id']; // Anggap Anda memiliki ID produk yang unik untuk setiap item
+
+    // Tambahkan produk ke keranjang
+    $_SESSION['cart_makanan'][] = $categories[$productId];
+}
+
+// Proses klik tombol Clear Cart
+if (isset($_SESSION['cart_makanan'])) {
+    $_SESSION['cart_makanan'] = []; // Mengosongkan keranjang
+}
+
+?>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-5 mb-96">
+    <?php foreach ($categories as $productId => $category) : ?>
+        <form method="post">
+            <div class="card w-96 bg-base-56 shadow-xl">
+                <input type="hidden" name="product_id" value="<?php echo $productId; ?>">
+                <figure class="px-10 pt-10">
+                    <img src="<?php echo $category['img'] ?>" alt="logo" class="rounded-xl" />
+                </figure>
+                <div class="card-body items-center text-center">
+                    <h2 class="card-title"><?php echo $category['title'] ?></h2>
+                    <p><?php echo $category['price'] ?></p>
+                    <div class="card-actions">
+                        <button type="submit" class="btn btn-primary">Beli Sekarang</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    <?php endforeach; ?>
+</div>
+    
+
+    / file pesanan/
+    <?php
+// pesanan.php
+
+session_start();
+
+// Membersihkan keranjang jika parameter clear_cart ditemukan dalam URL
+if (isset($_GET['clear_cart'])) {
+    unset($_SESSION['cart']);
+    header('Location: pesanan.php');
+    exit;
+}
+
+?>
+
+<div class="container mx-auto p-8">
+    <?php if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) : ?>
+        <h1 class="text-3xl font-bold mb-4">Detail Pesanan</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <?php foreach ($_SESSION['cart'] as $product) : ?>
+                <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+                    <img src="<?= $product['img'] ?>" alt="<?= $product['title'] ?>" class="mb-4 max-w-full h-auto">
+                    <h2 class="text-xl font-semibold"><?= $product['title'] ?></h2>
+                    <p class="text-gray-700 mb-2">Harga: <?= $product['price'] ?></p>
+                    <a href="<?= $product['link'] ?>" class="text-blue-500">Lihat Detail</a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <!-- Tombol untuk proses pesanan -->
+        <form action='proses_pesanan.php' method='post'>
+            <button type='submit' class='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600'>Proses Pesanan</button>
+        </form>
+
+        <!-- Tombol untuk membersihkan keranjang -->
+        <form action='pesanan.php?clear_cart=true' method='post'>
+            <button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mt-4'>Bersihkan Keranjang</button>
+        </form>
+    <?php else : ?>
+        <p class="text-xl">Keranjang belanja kosong.</p>
+    <?php endif; ?>
+</div>
